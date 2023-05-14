@@ -1,15 +1,12 @@
 package main
 
-import "fmt"
-
 func main() {
+	cards := deck{"Ace of Diamonds", newCard()}
 
-	// var card string = "Ace of Spades"
-	// alternative syntax for the above. Go will infer the type string
-	// the colon before equals is only used for new variable initializations not for assignment
-	card := newCard()
+	// append is immutable
+	cards = append(cards, "Six of Spades")
 
-	fmt.Println((card))
+	cards.print()
 }
 
 func newCard() string {
