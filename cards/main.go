@@ -3,5 +3,10 @@ package main
 func main() {
 	cards := newDeck()
 
-	cards.print()
+	// Deal returns two values. The first one will be
+	// assigned to hand and the second one to remainingDeck
+	hand, remainingDeck := deal(cards, 5)
+
+	hand.print()
+	remainingDeck.print()
 }

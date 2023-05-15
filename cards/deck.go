@@ -36,3 +36,14 @@ func newDeck() deck {
 	}
 	return cards
 }
+
+// the (deck, deck) return type tells go we're going to return 2 values
+// both of type deck
+func deal(d deck, handSize int) (deck, deck) {
+
+	// to return 2 return values we simply put a comma between them
+	// this d[startIndexIncluding:upToNotIncluding] syntax is
+	// how we create a subset of a slice based on start (includint)
+	// and end index (NOT including)
+	return d[:handSize], d[handSize:]
+}
