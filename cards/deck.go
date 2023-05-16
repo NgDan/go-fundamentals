@@ -1,6 +1,10 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"os"
+	"strings"
+)
 
 // create a new type of deck which is a slice of strings
 
@@ -46,4 +50,41 @@ func deal(d deck, handSize int) (deck, deck) {
 	// how we create a subset of a slice based on start (includint)
 	// and end index (NOT including)
 	return d[:handSize], d[handSize:]
+}
+
+// we'll make this function get a receiver of type deck
+// to tie it to the deck type
+func (d deck) toString() string {
+	// this is called type conversion. Here we convert the value
+	// d of type deck to a slice of strings with the type slice
+	// of strings
+	sliceOfStrings := []string(d)
+	joinedSliceOfStrings := strings.Join(sliceOfStrings, ",")
+	return joinedSliceOfStrings
+}
+
+func (d deck) saveToFile(filename string) error {
+	return os.WriteFile(filename, []byte(d.toString()), 0666)
+}
+
+func (d deck) readFile(filename string) ([]byte, error) {
+	return os.ReadFile(filename)
+}
+
+func newDeckFromFile(filename string) deck {
+	byteSlice, err := os.ReadFile(filename)
+	if err != nil {
+		fmt.Println("Error:", err)
+		// exit current program with given status code
+		os.Exit(1)
+	}
+	deckString := string(byteSlice)
+
+	sliceOfStrings := strings.Split(deckString, ",")
+
+	// type conversion from sliceOfStrings to a deck.
+	// the difference between deck and []string is that
+	// deck has these additional functions attached to
+	// it declared by us using a receiver
+	return deck(sliceOfStrings)
 }
