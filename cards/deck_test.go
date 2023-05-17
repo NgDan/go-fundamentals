@@ -1,6 +1,9 @@
 package main
 
-import "testing"
+import (
+	"os"
+	"testing"
+)
 
 // in go, test files simply have the _test suffix
 
@@ -21,4 +24,23 @@ func TestNewDeck(t *testing.T) {
 	if d[len(d)-1] != "Four of Clubs" {
 		t.Errorf("Expected last card of Four of Clubs, but got %v", d[len(d)-1])
 	}
+}
+
+func TestSaveToDeckAdNewDeckTestFile(t *testing.T) {
+	// very important to do the cleanup at the beginning
+	// of the test to always make sure we start on a
+	// clean slate
+	os.Remove("_decktesting")
+
+	d := newDeck()
+
+	d.saveToFile("_decktesting")
+
+	deckFromFile := newDeckFromFile("_decktesting")
+
+	if len(deckFromFile) != 16 {
+		t.Errorf("Expected deck length to be 16 but got %v", len(deckFromFile))
+	}
+
+	os.Remove("_decktesting")
 }
