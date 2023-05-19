@@ -10,18 +10,29 @@ type contactInfo struct {
 type person struct {
 	firstName string
 	lastName  string
-	contact   contactInfo
+	contactInfo
 }
 
 func main() {
 	jim := person{
 		firstName: "Jim",
 		lastName:  "Party",
-		contact: contactInfo{
+		contactInfo: contactInfo{
 			email:   "jimparty@gmail.com",
 			zipCode: 94000,
 		},
 	}
+	jim.print()
+	jim.updateName("Jimmy")
+}
 
-	fmt.Printf("%+v", jim)
+// go is a "pass by value" language as opposed to javascript which is "pass by reference"
+// this means, when we pass a struct to a function, go is going to clone the value of said
+// struct into a new memory in address and use that instead. Think of immutability
+func (p person) updateName(newFirstName string) {
+	p.firstName = newFirstName
+}
+
+func (p person) print() {
+	fmt.Printf("%+v", p)
 }
