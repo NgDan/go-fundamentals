@@ -22,15 +22,20 @@ func main() {
 			zipCode: 94000,
 		},
 	}
+	// jim.updateName("Jimmy")
+	// jim.print()
+
+	jimPointer := &jim
+	jimPointer.updateName("jimmy")
 	jim.print()
-	jim.updateName("Jimmy")
+
 }
 
 // go is a "pass by value" language as opposed to javascript which is "pass by reference"
 // this means, when we pass a struct to a function, go is going to clone the value of said
 // struct into a new memory in address and use that instead. Think of immutability
-func (p person) updateName(newFirstName string) {
-	p.firstName = newFirstName
+func (pointerToPerson *person) updateName(newFirstName string) {
+	(*pointerToPerson).firstName = newFirstName
 }
 
 func (p person) print() {
