@@ -56,3 +56,23 @@ func (pointerToPerson *person) updateName(newFirstName string) {
 func (p person) print() {
 	fmt.Printf("%+v", p)
 }
+
+// there's some syntactic sugar in go where if we have a receiver of type pointer of any variable
+// we can pass that variable to the receiver without first converting it to a pointer and go will
+// automatically get the pointer of that variable for us
+// For example here, we do &jim to get the pointer of jim:
+// jimPointer := &jim
+// jimPointer.updateName("jimmy")
+
+// func (pointerToPerson *person) updateName(newFirstName string) {
+// 	(*pointerToPerson).firstName = newFirstName
+// }
+// But we could also do this:
+// jim.updateName("jimmy")
+// func (pointerToPerson *person) updateName(newFirstName string) {
+// 	(*pointerToPerson).firstName = newFirstName
+// }
+// here, there receiver is of type person, not *person but go
+// will understand and go and get the actual value of person
+// instead of cloning person into a different memory address
+// and pass it by value
