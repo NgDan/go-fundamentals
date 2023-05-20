@@ -22,6 +22,8 @@ func main() {
 			zipCode: 94000,
 		},
 	}
+	// Whenever you pass an integer, float, string, or struct into a function or as
+	// a receiver, go creates a copy of that argument and passes it to the function/receiver
 	// jim.updateName("Jimmy")
 	// jim.print()
 
@@ -76,3 +78,19 @@ func (p person) print() {
 // will understand and go and get the actual value of person
 // instead of cloning person into a different memory address
 // and pass it by value
+
+// NOT all types are passed by value in go:
+
+// passed by value:
+// int
+// float
+// string
+// bool
+// struct
+
+// passed by reference
+// slices
+// maps
+// channels
+// pointers
+// functions
