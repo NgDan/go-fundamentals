@@ -49,6 +49,7 @@ func main() {
 // It only means that the pointerToPerson has to be of type
 // pointer to person
 func (pointerToPerson *person) updateName(newFirstName string) {
+	// *pointerToPerson is an actual dereference and will result in the value
 	(*pointerToPerson).firstName = newFirstName
 }
 
