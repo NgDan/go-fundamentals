@@ -10,9 +10,18 @@ func main() {
 		"green": "#4bf745",
 	}
 
-	// Maps properties can't be accessed using the dot syntax like structs.
-	// They can only be accessed using square brackets syntax:
-	// colors["red"] works but colors.red doesn't
+	// // Maps properties can't be accessed using the dot syntax like structs.
+	// // They can only be accessed using square brackets syntax:
+	// // colors["red"] works but colors.red doesn't
 
-	fmt.Println(colors)
+	// // delete a property from the map colors
+	// delete(colors, "red")
+	printMap(colors)
+}
+
+func printMap(c map[string]string) {
+	for color, hex := range c {
+		fmt.Println("Hex code for", color, "is", hex)
+
+	}
 }
