@@ -10,5 +10,9 @@ func main() {
 		"green": "#4bf745",
 	}
 
+	// Maps properties can't be accessed using the dot syntax like structs.
+	// They can only be accessed using square brackets syntax:
+	// colors["red"] works but colors.red doesn't
+
 	fmt.Println(colors)
 }
