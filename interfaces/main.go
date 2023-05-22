@@ -2,6 +2,12 @@ package main
 
 import "fmt"
 
+type bot interface {
+	// any type in this program that implements a function called getGreeting
+	// which returns a type string will also be considered of type "bot"
+	getGreeting() string
+}
+
 type englishBot struct{}
 type spanishBot struct{}
 
@@ -10,13 +16,20 @@ func main() {
 	eb := englishBot{}
 	sb := spanishBot{}
 
+	// because the englishBot and spanishBot both implement a function named "getGreeting"
+	// that returns type "bot", they're both also considered a type "bot". That's why
+	// we can pass them to printGreeting
 	printGreeting(eb)
 	printGreeting(sb)
 }
 
-func printGreeting(eb englishBot) {
-	fmt.Println(eb.getGreeting())
+func printGreeting(b bot) {
+	fmt.Println(b.getGreeting())
 }
+
+// func printGreeting(eb englishBot) {
+// 	fmt.Println(eb.getGreeting())
+// }
 
 // func printGreeting(sb spanishBot) {
 // 	fmt.Println(sb.getGreeting())
@@ -34,5 +47,4 @@ func (spanishBot) getGreeting() string {
 	// this has a DIFFERENT implementation
 	// than englishBot getGreeting
 	return "hola"
-
 }
