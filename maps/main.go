@@ -20,6 +20,9 @@ func main() {
 }
 
 func printMap(c map[string]string) {
+	// one difference between structs and maps
+	// is that you can't iterate over structs
+	// like we do here
 	for color, hex := range c {
 		fmt.Println("Hex code for", color, "is", hex)
 
