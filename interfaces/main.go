@@ -3,8 +3,11 @@ package main
 import "fmt"
 
 type bot interface {
-	// any type in this program that implements a function called getGreeting
-	// which returns a type string will also be considered of type "bot"
+	// Any type in this program that implements a function called getGreeting
+	// which returns a type string will also be considered of type "bot".
+	// This is why we say that interfaces in go are implicit. Go will automatically
+	// cast this interface to any type that has the same functions as the ones
+	// in the interface
 	getGreeting() string
 }
 
