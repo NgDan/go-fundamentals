@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"time"
 )
 
 // call every url in series
@@ -22,10 +23,28 @@ func main() {
 		go checkLink(link, c)
 	}
 
-	// we can wait for the channels in a for loop
-	// this syntax means the for loop will run forever
-	for {
-		go checkLink(<-c, c)
+	// We can wait for the channels in a for loop.
+	// "range c" means wait for the channel until
+	// it receives a message then continue with the
+	// body of the for loop.
+	for l := range c {
+		// This is a function literal. It is the equivalent
+		// of a javascript IIFE
+		// Also, if we don't explicitly pass the link to the
+		// function literal, go will pass the reference to that
+		// var instead of the actual value and the reference is changed
+		// over time by the for loop
+		go func(link string) {
+			time.Sleep(time.Second)
+			checkLink(link, c)
+			// here, when we pass (l) to the function literal go will
+			// make a copy of the value and pass the value instead of
+			// passing the reference which is what would happen if we
+			// didn't explicitly pass the link into the function literal
+			// The lesson here is to never share the same variable
+			// between 2 go routines. Always pass it to a function first
+			// so a copy is created or pass it through a channel
+		}(l)
 	}
 }
 
