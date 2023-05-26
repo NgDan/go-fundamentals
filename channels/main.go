@@ -22,21 +22,10 @@ func main() {
 		go checkLink(link, c)
 	}
 
-	// receiving a message through a channel is a blocking
-	// operation. The execution of the main function will
-	// be paused until some go routine passes a message
-	// through this channel
-	// If no one passes a message to a channel the program will
-	// just hang forever
-	// fmt.Println(<-c)
-	// fmt.Println(<-c)
-	// fmt.Println(<-c)
-	// fmt.Println(<-c)
-	// fmt.Println(<-c)
-
 	// we can wait for the channels in a for loop
-	for i := 0; i < len(links); i++ {
-		fmt.Println(<-c)
+	// this syntax means the for loop will run forever
+	for {
+		go checkLink(<-c, c)
 	}
 }
 
@@ -45,12 +34,12 @@ func checkLink(link string, c chan string) {
 
 	if err != nil {
 		fmt.Println(link, "might be down")
-		c <- "Might be down I think"
+		c <- link
 		return
 	}
 
 	fmt.Println(link, "is up")
-	c <- "Service is up"
+	c <- link
 }
 
 // when we prefix a func with the keyword "go", it'll spawn
