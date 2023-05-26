@@ -28,11 +28,16 @@ func main() {
 	// through this channel
 	// If no one passes a message to a channel the program will
 	// just hang forever
-	fmt.Println(<-c)
-	fmt.Println(<-c)
-	fmt.Println(<-c)
-	fmt.Println(<-c)
-	fmt.Println(<-c)
+	// fmt.Println(<-c)
+	// fmt.Println(<-c)
+	// fmt.Println(<-c)
+	// fmt.Println(<-c)
+	// fmt.Println(<-c)
+
+	// we can wait for the channels in a for loop
+	for i := 0; i < len(links); i++ {
+		fmt.Println(<-c)
+	}
 }
 
 func checkLink(link string, c chan string) {
