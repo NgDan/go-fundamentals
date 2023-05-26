@@ -16,7 +16,7 @@ func main() {
 	}
 
 	for _, link := range links {
-		checkLink(link)
+		go checkLink(link)
 	}
 }
 
@@ -30,3 +30,12 @@ func checkLink(link string) {
 
 	fmt.Println(link, "is up")
 }
+
+// when we prefix a func with the keyword "go", it'll spawn
+// a new go routine and pass it to the scheduler and
+// continue the execution of the main go routine (the main)
+// program. The scheduler is then in charge of switching
+// between go routines. When the main program finishes
+// it exists even if there are still go routines going on.
+
+// Channels are used to communicate between go routines.
