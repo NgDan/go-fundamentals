@@ -39,3 +39,5 @@ func checkLink(link string) {
 // it exists even if there are still go routines going on.
 
 // Channels are used to communicate between go routines.
+// Channels are typed. We can only send a specific type
+// of data over one channel.
