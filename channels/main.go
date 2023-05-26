@@ -15,20 +15,37 @@ func main() {
 		"http://amazon.com",
 	}
 
+	// create a channel that works with strings
+	c := make(chan string)
+
 	for _, link := range links {
-		go checkLink(link)
+		go checkLink(link, c)
 	}
+
+	// receiving a message through a channel is a blocking
+	// operation. The execution of the main function will
+	// be paused until some go routine passes a message
+	// through this channel
+	// If no one passes a message to a channel the program will
+	// just hang forever
+	fmt.Println(<-c)
+	fmt.Println(<-c)
+	fmt.Println(<-c)
+	fmt.Println(<-c)
+	fmt.Println(<-c)
 }
 
-func checkLink(link string) {
+func checkLink(link string, c chan string) {
 	_, err := http.Get(link)
 
 	if err != nil {
 		fmt.Println(link, "might be down")
+		c <- "Might be down I think"
 		return
 	}
 
 	fmt.Println(link, "is up")
+	c <- "Service is up"
 }
 
 // when we prefix a func with the keyword "go", it'll spawn
